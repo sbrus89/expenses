@@ -2,6 +2,7 @@ import user_input
 import pickle   
 import os
 import calendar
+import datetime
 
 ############################################################################################################################################## 
 
@@ -26,5 +27,37 @@ def manage(ftype,task,month="",year="",obj=""):
     
   elif task == "dump":
     pickle.dump(obj,open(fname,"wb"))
+
+##############################################################################################################################################
+
+def find_range():
+
+  files = os.listdir("./month_archive/")
+  
+  min_start = datetime.datetime(2200,1,1)
+  max_end = datetime.datetime(1950,1,1)
+  for f in files:
+    if f.find("_") > 0:
+      
+      name = f.split(".")[0]
+      month,year = name.split("_")
+      month = datetime.datetime.strptime(month,'%B').month
+      year = int(year)
+      last_day = calendar.monthrange(year,month)[1]      
+      start = datetime.datetime(year,month,1)
+      end = datetime.datetime(year,month,last_day)
+
+
+      if start < min_start:
+        min_start = start
+        min_month = month
+        min_year = year
+      if end > max_end:
+        max_end = end
+        max_month = month
+        max_year = year
+
+  return [[min_month,min_year],[max_month,max_year]]
+
 
 ##############################################################################################################################################

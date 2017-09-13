@@ -3,7 +3,12 @@
 ###############################################################################################################################################    
   
 def option_num(prompt,minimum,maximum,default="-1"):
-  num = raw_input(prompt+" ")
+  if default != "-1":
+    initial_prompt = prompt+" "+"(default: "+str(default)+")"
+  else:  
+    initial_prompt = prompt
+    
+  num = raw_input(initial_prompt+" ")  
   if default != "-1" and num == "":
     print "  Default value selected: "+str(default)
     return default  
