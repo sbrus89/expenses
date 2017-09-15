@@ -3,6 +3,7 @@ import pickle
 import os
 import calendar
 import datetime
+import shutil
 
 ############################################################################################################################################## 
 
@@ -26,6 +27,7 @@ def manage(ftype,task,month="",year="",obj=""):
     return listobj
     
   elif task == "dump":
+    shutil.copyfile(fname,fname+'-backup')
     pickle.dump(obj,open(fname,"wb"))
 
 ##############################################################################################################################################
@@ -37,7 +39,7 @@ def find_range():
   min_start = datetime.datetime(2200,1,1)
   max_end = datetime.datetime(1950,1,1)
   for f in files:
-    if f.find("_") > 0:
+    if f.find("_") > 0 and f.find("-backup") < 0:
       
       name = f.split(".")[0]
       month,year = name.split("_")

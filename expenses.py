@@ -7,6 +7,7 @@ def main_menu():
  
   options = [['Make entries',      entry.make_entries],
              ['Edit an entry',     entry.edit_entry],
+             ['Delete an entry',   entry.delete_entry],
              ['Show month',        show.month],
              ['Show range',        show.month_range],
              ['Show merchant list',show.merchant_list],

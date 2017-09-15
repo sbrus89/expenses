@@ -93,6 +93,22 @@ def edit_entry():
   files.manage("Month","dump",month,year,expense_list)
   files.manage("Merchant","dump",obj=merchant_list)    
   
+############################################################################################################################################## 
+
+def delete_entry():
+    
+  month,year,expense_list,merchant_list,info = init_entries()
+  
+  menu = make_expense_menu(expense_list)
+    
+  idx,opt = user_input.from_menu("Enter expense number:",menu,"Choose expense:",2)
+
+  item = expense_list.pop(idx)
+  
+  print item
+  ans = user_input.yes_no("Delete_entry? ")
+  if ans == "y":
+    files.manage("Month","dump",month,year,expense_list)  
   
 ############################################################################################################################################## 
   
