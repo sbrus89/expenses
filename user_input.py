@@ -32,8 +32,16 @@ def amount(prompt,minimum,maximum):
   
 ##############################################################################################################################################  
 
-def yes_no(prompt):
-  ans = raw_input(prompt+" ")
+def yes_no(prompt,default="-1"):
+  if default != "-1":
+    initial_prompt = prompt+" "+"(default: "+str(default)+")"
+  else:  
+    initial_prompt = prompt
+    
+  ans = raw_input(initial_prompt+" ")
+  if default != "-1" and ans == "":
+    print "  Default value selected: "+str(default)
+    return default    
   while ans != "y" and ans != "n":
     print '  Error: entry must be either "y" or "n"'
     ans = raw_input(prompt+" ")

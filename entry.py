@@ -21,7 +21,7 @@ def init_entries():
   now = datetime.now()   
   
   cat = categorize.category()
-  people = ["Aleshia","Steven","Both"]
+  people = ["Aleshia","Steven","Both"]  
   
   info = [["month",        month,                     []],
           ["year",         year,                      []],
@@ -31,23 +31,28 @@ def init_entries():
           ["sub-category", cat.get_sub_category,      []],
           ["merchant",     merch.get_seller,          []],
           ["amount",       user_input.amount,         ["Enter amount:",0.0,20000.0]],
-          ["for",          user_input.from_menu,      ["Enter person purchase is for:",people,"Choose person:",1]]]  
+          ["for",          user_input.from_menu,      ["Enter person purchase is for:",people,"Choose person:",1]]]    
           
-  return month,year,expense_list,merchant_list,info
-  
+  return month,year,expense_list,merchant_list,info 
+
 ##############################################################################################################################################    
+
   
 def make_entries():
   print "Make entries"
   
-  month,year,expense_list,merchant_list,info = init_entries()
+  month,year,expense_list,merchant_list,info_init = init_entries()
   
   keep_going = "y"
   while keep_going == "y":
+    info = info_init[:]
     entry = make_entry(expense_list,info)
-    keep_going = user_input.yes_no("Enter another expense? ")
-  files.manage("Month","dump",month,year,expense_list)
-  files.manage("Merchant","dump",obj=merchant_list)
+    keep_going = user_input.yes_no("Enter another expense?")
+    
+  save = user_input.yes_no("Save entries?","y")  
+  if save == "y":
+    files.manage("Month","dump",month,year,expense_list)
+    files.manage("Merchant","dump",obj=merchant_list)
     
   
 ##############################################################################################################################################
