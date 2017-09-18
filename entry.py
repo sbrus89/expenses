@@ -23,15 +23,16 @@ def init_entries():
   cat = categorize.category()
   people = ["Aleshia","Steven","Both"]  
   
-  info = [["month",        month,                     []],
-          ["year",         year,                      []],
-          ["date",         user_input.option_num,     ["Enter date:",1,end_day,now.day]],
-          ["note",         raw_input,                 ["Enter note: "]],          
-          ["category",     cat.get_category,          []],
-          ["sub-category", cat.get_sub_category,      []],
-          ["merchant",     merch.get_seller,          []],
-          ["amount",       user_input.amount,         ["Enter amount:",0.0,20000.0]],
-          ["for",          user_input.from_menu,      ["Enter person purchase is for:",people,"Choose person:",1]]]    
+          # dictionary key # function                 # function arguments                                         #result 
+  info = [["month",        None,                      [],                                                          month],
+          ["year",         None,                      [],                                                          year ],
+          ["date",         user_input.option_num,     ["Enter date:",1,end_day,now.day],                           None ],
+          ["note",         raw_input,                 ["Enter note: "],                                            None ],           
+          ["category",     cat.get_category,          [],                                                          None ],
+          ["sub-category", cat.get_sub_category,      [],                                                          None ],
+          ["merchant",     merch.get_seller,          [],                                                          None ],
+          ["amount",       user_input.amount,         ["Enter amount:",0.0,20000.0],                               None ],
+          ["for",          user_input.from_menu,      ["Enter person purchase is for:",people,"Choose person:",1], None]]    
           
   return month,year,expense_list,merchant_list,info 
 
@@ -41,11 +42,10 @@ def init_entries():
 def make_entries():
   print "Make entries"
   
-  month,year,expense_list,merchant_list,info_init = init_entries()
+  month,year,expense_list,merchant_list,info = init_entries()
   
   keep_going = "y"
   while keep_going == "y":
-    info = info_init[:]
     entry = make_entry(expense_list,info)
     keep_going = user_input.yes_no("Enter another expense?")
     
@@ -62,11 +62,11 @@ def make_entry(expense_list,info):
   for inquiry in info:
     if callable(inquiry[1]):
       response = inquiry[1](*inquiry[2])
-      inquiry[1] = response
+      inquiry[3] = response
   
   entry = {}
   for i in info:
-    entry[i[0]] = i[1]
+    entry[i[0]] = i[3]
     
   print entry
   expense_list.append(entry)
