@@ -13,7 +13,9 @@ class category:
                        'Food':                 ['Groceries','Restaurants','Take-Out','Coffee'],
                        'Entertainment':        ['Admission/Tickets','Alcohol','Desert/Treats'],
                        'Personal':             ['Clothes','Shoes','Salon','Cosmetics','Laundry','Hygiene Products','Subscriptions','Shopping'],
-                       'Giving':               ['Tithing','Charity','Gifts']}
+                       'Giving':               ['Tithing','Charity','Gifts'],
+                       'Investments':          ['IRA','Taxable'],
+                       'Education':            ['Loans']}
                        
     self.current_category = ''                    
     
