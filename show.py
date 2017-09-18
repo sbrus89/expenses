@@ -4,44 +4,83 @@ import user_input
 import datetime
 import files
 import pprint
+import categorize
 
 class window(QtGui.QWidget):
   
   def __init__(self,expense_list):
     
     super(window,self).__init__()
-    self.initUI(expense_list)
+    self.expense_list = expense_list
+    self.initUI()   
     
-  def initUI(self,expense_list):
+  def initUI(self):
     
     #screen = QtGui.QDesktopWidget().screenGeometry()
     #self.setGeometry(0,0,screen.width(),screen.height())
     #self.setGeometry(300,300,250,150)
-    self.setWindowTitle('Test')
+    self.setWindowTitle('Expenses')
     
-    grid = QtGui.QGridLayout()
-    self.setLayout(grid)
-    table = self.create_table(expense_list)
-    table.setHorizontalHeaderLabels(["date","merchant","amount"])
-    table.resize(400,250)
-    grid.addWidget(table,0,0)
-    grid.addWidget(table,0,1)
+    self.cat = categorize.category()
+    self.catlist = QtGui.QComboBox()
+    self.catlist.addItem("All")
+    for key in self.cat.categories:
+      self.catlist.addItem(key)
+    self.catlist.currentIndexChanged.connect(self.change_subcat)  
+    
+    self.subcatlist = QtGui.QComboBox()
+    self.subcatlist.addItem("All") 
+    
+    self.grid = QtGui.QGridLayout()
+    self.setLayout(self.grid)
+    table = self.create_table()
+
+    self.grid.addWidget(self.catlist,0,0)
+    self.grid.addWidget(self.subcatlist,1,0)    
+
+    
     
     self.showMaximized()
     
-  def create_table(self,expense_list):
+  def create_table(self):
     table = QtGui.QTableWidget()
-    table.setRowCount(len(expense_list))
+    table.setRowCount(len(self.expense_list))
     table.setColumnCount(3)
+    table.setHorizontalHeaderLabels(["date","merchant","amount"])
+    #table.resize(400,250)    
     
-    for row,expense in enumerate(expense_list):
-      date = QtGui.QTableWidgetItem(str(expense["month"])+"/"+str(expense["date"])+"/"+str(expense["year"]))
-      merchant = QtGui.QTableWidgetItem(expense["merchant"])
-      amount = QtGui.QTableWidgetItem(str(expense["amount"]))
-      table.setItem(row,0,date)
-      table.setItem(row,1,merchant)
-      table.setItem(row,2,amount)
-    return table
+    self.current_cat = str(self.catlist.currentText())
+    self.current_subcat = str(self.subcatlist.currentText())
+    
+    print self.current_cat,self.current_subcat
+    
+    for row,expense in enumerate(self.expense_list):
+      if expense["category"] == self.current_cat or self.current_cat == "All":
+        if expense["sub-category"] == self.current_subcat or self.current_subcat == "All":
+          date = QtGui.QTableWidgetItem(str(expense["month"])+"/"+str(expense["date"])+"/"+str(expense["year"]))
+          merchant = QtGui.QTableWidgetItem(expense["merchant"])
+          amount = QtGui.QTableWidgetItem(str(expense["amount"]))
+          table.setItem(row,0,date)
+          table.setItem(row,1,merchant)
+          table.setItem(row,2,amount)
+          
+    self.grid.addWidget(table,2,0)
+    
+  def change_subcat(self):
+    print "index changed"
+    self.subcatlist = QtGui.QComboBox()
+    category = str(self.catlist.currentText())
+    self.subcatlist.currentIndexChanged.connect(self.create_table)    
+    self.subcatlist.addItem("All")
+    if category == "All":
+      pass
+    else:  
+      for item in self.cat.categories[category]:
+        print item
+        self.subcatlist.addItem(item)
+    self.grid.addWidget(self.subcatlist,1,0)
+    print ""
+    self.create_table()
   
 def main(expense_list):
   
