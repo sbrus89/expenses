@@ -32,3 +32,17 @@ class category:
     scat = user_input.from_menu("Enter sub-category:",sorted(self.categories[self.current_category]),"Choose sub-category",1)
     return scat
     
+##############################################################################################################################################        
+
+def extract_category(category,sub_category,expense_list):    
+  
+  category_list = []
+  for expense in expense_list:
+    if expense["category"] == category or category == "All":
+      if expense["sub-category"] == sub_category or sub_category == "All":
+        category_list.append(expense)
+
+  return category_list
+
+##############################################################################################################################################        
+    
