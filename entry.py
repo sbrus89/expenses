@@ -24,8 +24,8 @@ def init_entries():
   people = ["Aleshia","Steven","Both"]  
   
           # dictionary key # function                 # function arguments                                         #result 
-  info = [["month",        None,                      [],                                                          month],
-          ["year",         None,                      [],                                                          year ],
+  info = [["month",        month,                     [],                                                          month],
+          ["year",         year,                      [],                                                          year ],
           ["date",         user_input.option_num,     ["Enter date:",1,end_day,now.day],                           None ],
           ["note",         raw_input,                 ["Enter note: "],                                            None ],           
           ["category",     cat.get_category,          [],                                                          None ],
