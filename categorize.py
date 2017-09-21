@@ -8,14 +8,14 @@ class category:
 
     self.categories = {'Travel/Transportation':['Gas','Car Maintenance','Airfare','Bus/Train Tickets','Lodging','Parking','Fees','Tolls','Car Purchase','Insurance'],
                        'Housing':              ['Rent','Mortgage','Maintenance/Repairs','Insurance'],
-                       'Health Care':          ['Co-Pays','Co-Insurance','Deductible','Dental','Vision','NFP'],
+                       'Health Care':          ['Co-Pays','Co-Insurance','Deductible','Dental','Vision','NFP','Medicines'],
                        'Utilities':            ['Electric','Water','Trash','Phone','Cable','Internet'],
                        'Food':                 ['Groceries','Restaurants','Take-Out','Coffee'],
                        'Entertainment':        ['Admission/Tickets','Alcohol','Desert/Treats'],
-                       'Personal':             ['Clothes','Shoes','Salon','Cosmetics','Laundry','Hygiene Products','Subscriptions','Shopping'],
-                       'Giving':               ['Tithing','Charity','Gifts'],
+                       'Personal':             ['Clothes','Shoes','Salon','Cosmetics','Laundry','Hygiene Products','Subscriptions','Shopping','Home'],
+                       'Giving':               ['Tithing','Charity','Gifts','Hosting'],
                        'Investments':          ['IRA','Taxable'],
-                       'Education':            ['Loans']}
+                       'Education':            ['Loans','Books','Fees']}
                        
     self.current_category = ''                    
     
