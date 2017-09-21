@@ -6,6 +6,7 @@ import files
 import pprint
 import categorize
 import entry
+import calculate
 
 class window(QtGui.QWidget):
   
@@ -45,7 +46,7 @@ class window(QtGui.QWidget):
     
   def create_table(self):
     table = QtGui.QTableWidget()
-    table.setRowCount(len(self.expense_list))
+    table.setRowCount(len(self.expense_list)+1)
     table.setColumnCount(3)
     table.setHorizontalHeaderLabels(["date","merchant","amount"])
     #table.resize(400,250)    
@@ -57,16 +58,22 @@ class window(QtGui.QWidget):
     
     self.category_list = categorize.extract_category(self.current_cat,self.current_subcat,self.expense_list)
     self.category_list.sort(key=lambda x: x["date"], reverse=False)
-
+    total = calculate.sum_list(self.category_list)
+    print total
     
-    for row,expense in enumerate(self.category_list):    
+    row = 0
+    for expense in self.category_list:    
       date = QtGui.QTableWidgetItem(str(expense["month"])+"/"+str(expense["date"])+"/"+str(expense["year"]))
       merchant = QtGui.QTableWidgetItem(expense["merchant"])
       amount = QtGui.QTableWidgetItem(str(expense["amount"]))
       table.setItem(row,0,date)
       table.setItem(row,1,merchant)
       table.setItem(row,2,amount)
+      row = row + 1
           
+    table.setItem(row,0,QtGui.QTableWidgetItem("total"))
+    table.setItem(row,2,QtGui.QTableWidgetItem(str(total)))
+    
     self.grid.addWidget(table,2,0)
     
   def change_subcat(self):
