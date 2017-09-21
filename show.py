@@ -5,6 +5,7 @@ import datetime
 import files
 import pprint
 import categorize
+import entry
 
 class window(QtGui.QWidget):
   
@@ -96,9 +97,12 @@ def month():
   year = user_input.option_num("Enter year:",2017,max_date[1],now.year)
   month = user_input.option_num("Enter month:",1,12,now.month)  
   expense_list = files.manage("Month","load",month,year)  
-  pprint.pprint(expense_list)
+  menu = entry.make_expense_menu(expense_list)
   
-  main(expense_list)
+  for i,item in enumerate(menu):
+    print "  ",i+1," - ",item
+  
+  #main(expense_list)
   
 def month_range():  
 
