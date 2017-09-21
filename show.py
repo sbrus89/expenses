@@ -55,15 +55,17 @@ class window(QtGui.QWidget):
     
     print self.current_cat,self.current_subcat
     
-    for row,expense in enumerate(self.expense_list):
-      if expense["category"] == self.current_cat or self.current_cat == "All":
-        if expense["sub-category"] == self.current_subcat or self.current_subcat == "All":
-          date = QtGui.QTableWidgetItem(str(expense["month"])+"/"+str(expense["date"])+"/"+str(expense["year"]))
-          merchant = QtGui.QTableWidgetItem(expense["merchant"])
-          amount = QtGui.QTableWidgetItem(str(expense["amount"]))
-          table.setItem(row,0,date)
-          table.setItem(row,1,merchant)
-          table.setItem(row,2,amount)
+    self.category_list = categorize.extract_category(self.current_cat,self.current_subcat,self.expense_list)
+    self.category_list.sort(key=lambda x: x["date"], reverse=False)
+
+    
+    for row,expense in enumerate(self.category_list):    
+      date = QtGui.QTableWidgetItem(str(expense["month"])+"/"+str(expense["date"])+"/"+str(expense["year"]))
+      merchant = QtGui.QTableWidgetItem(expense["merchant"])
+      amount = QtGui.QTableWidgetItem(str(expense["amount"]))
+      table.setItem(row,0,date)
+      table.setItem(row,1,merchant)
+      table.setItem(row,2,amount)
           
     self.grid.addWidget(table,2,0)
     
@@ -90,8 +92,7 @@ def main(expense_list):
   app.exec_()
   
 def month():
-  
-  
+    
   min_date,max_date = files.find_range() 
   now = datetime.datetime.now()   
   year = user_input.option_num("Enter year:",2017,max_date[1],now.year)
@@ -102,7 +103,7 @@ def month():
   for i,item in enumerate(menu):
     print "  ",i+1," - ",item
   
-  #main(expense_list)
+  main(expense_list)
   
 def month_range():  
 
