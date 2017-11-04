@@ -15,13 +15,14 @@ def manage(ftype,task,month="",year="",obj=""):
   
   if task == "load":
     if not os.path.isfile(fname):
-      ans = user_input.yes_no(ftype+" file does not exist. Would you like to create it (y/n):")
+      get_input = user_input.user_input(0)
+      ans = get_input.yes_no(ftype+" file does not exist. Would you like to create it (y/n):")
       if ans == "y":
         listobj = []
         pickle.dump(listobj,open(fname,"wb"))
       else:
         print "Exiting..."
-        stop()
+        user_input.stop()
       
     listobj = pickle.load(open(fname,"rb"))
     return listobj

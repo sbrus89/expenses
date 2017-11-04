@@ -3,7 +3,7 @@ import entry
 import show
 
 
-def main_menu():
+def main_menu():  
  
   options = [['Make entries',      entry.make_entries],
              ['Edit an entry',     entry.edit_entry],
@@ -13,8 +13,8 @@ def main_menu():
              ['Show merchant list',show.merchant_list],
              ['Exit',              user_input.stop]]
      
-     
-  [idx,opt] = user_input.from_menu("Main Menu:",[opt[0] for opt in options],"Choose option:") 
+  get_input = user_input.user_input(0)   
+  [idx,opt] = get_input.from_menu("Main Menu:",[opt[0] for opt in options],"Choose option:") 
   options[idx][1]()
     
   

@@ -5,3 +5,4 @@ def sum_list(expense_list):
   
   return total
   
+  

@@ -17,21 +17,23 @@ class category:
                        'Investments':          ['IRA','Taxable'],
                        'Education':            ['Loans','Books','Fees']}
                        
-    self.current_category = ''                    
+    self.current_category = ''  
+    self.get_input = user_input.user_input(1)
     
 ##############################################################################################################################################                     
                      
   def get_category(self):
-    cat = user_input.from_menu("Enter category:",sorted(self.categories.keys()),"Choose category:",1)
+    cat = self.get_input.from_menu("Enter category:",sorted(self.categories.keys()),"Choose category:",1)
     self.current_category = cat
     return cat
     
 ##############################################################################################################################################        
     
   def get_sub_category(self):
-    scat = user_input.from_menu("Enter sub-category:",sorted(self.categories[self.current_category]),"Choose sub-category",1)
+    scat = self.get_input.from_menu("Enter sub-category:",sorted(self.categories[self.current_category]),"Choose sub-category",1)
     return scat
     
+##############################################################################################################################################        
 ##############################################################################################################################################        
 
 def extract_category(category,sub_category,expense_list):    
