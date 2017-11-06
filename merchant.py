@@ -14,14 +14,19 @@ class input_merchant:
       
       
   def get_seller(self):
+    get_input = user_input.user_input(1)
     readline.parse_and_bind("tab: complete")
     readline.set_completer(self.complete)    
     name = raw_input("Enter merchant name: ")
+    if name in get_input.exceptions:
+      return name
     if name not in self.ls:
-      ans = user_input.yes_no("  Selected merchant not in list. Would you like to add it?")
+      ans = get_input.yes_no("  Selected merchant not in list. Would you like to add it?")
       if ans == "y":
         self.ls.append(name)
         print self.ls
+      elif ans in get_input.exceptions:
+        return ans
       else:
         self.get_seller()
      

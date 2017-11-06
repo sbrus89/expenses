@@ -102,7 +102,11 @@ class user_input:
     for i,opt in enumerate(options):
       print "  ",i+1," - ",opt
     
-    num = self.option_num(prompt,1,len(options))   
+    num = self.option_num(prompt,1,len(options)) 
+    
+    if num in self.exceptions:
+      return num
+    
     idx = num-1
     opt = options[idx]
   

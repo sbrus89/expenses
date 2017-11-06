@@ -61,11 +61,23 @@ def make_entries():
 
 def make_entry(expense_list,info):
        
-  for inquiry in info:
+  i = 0
+  while i < len(info):
+    
+    inquiry = info[i]
+    
     if callable(inquiry[1]):
       response = inquiry[1](*inquiry[2])
-      inquiry[3] = response
-  
+      if response == "redo":
+	i = 0
+      elif response == "undo":
+	if i > 0:  
+	  i = i-2
+      else:
+        inquiry[3] = response
+        
+    i = i+1
+    
   entry = {}
   for i in info:
     entry[i[0]] = i[3]
