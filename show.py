@@ -115,20 +115,21 @@ class window(QtGui.QWidget):
     table.setHorizontalHeaderLabels(["category","total","percent"])
     
     all_total = calculate.sum_list(self.expense_list)
-    
+
     row = 0
-    for category in self.cat.categories:
-      category_list = categorize.extract_category(category,"All",self.expense_list)
-      category_total = calculate.sum_list(category_list)
-      category_percent = round(category_total/all_total*100.0,2)
-      table.setItem(row,0,QtGui.QTableWidgetItem(category))
-      table.setItem(row,1,QtGui.QTableWidgetItem(str(category_total)))
-      table.setItem(row,2,QtGui.QTableWidgetItem(str(category_percent)))
-      row = row + 1      
+    if all_total > 0.00:
+      for category in self.cat.categories:
+        category_list = categorize.extract_category(category,"All",self.expense_list)
+        category_total = calculate.sum_list(category_list)
+        category_percent = round(category_total/all_total*100.0,2)
+        table.setItem(row,0,QtGui.QTableWidgetItem(category))
+        table.setItem(row,1,QtGui.QTableWidgetItem(str(category_total)))
+        table.setItem(row,2,QtGui.QTableWidgetItem(str(category_percent)))
+        row = row + 1      
       
-      table.setItem(row,0,QtGui.QTableWidgetItem("Total"))
-      table.setItem(row,1,QtGui.QTableWidgetItem(str(all_total)))
-      table.setItem(row,2,QtGui.QTableWidgetItem("100.00"))      
+    table.setItem(row,0,QtGui.QTableWidgetItem("Total"))
+    table.setItem(row,1,QtGui.QTableWidgetItem(str(all_total)))
+    table.setItem(row,2,QtGui.QTableWidgetItem("100.00"))      
       
     self.grid.addWidget(table,0,0,3,1)      
     
