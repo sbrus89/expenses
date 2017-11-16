@@ -80,9 +80,19 @@ def make_entry(expense_list,info):
     
   entry = {}
   for i in info:
-    entry[i[0]] = i[3]
-    
+    entry[i[0]] = i[3]    
   print entry
+  
+  for expense in expense_list:
+    if expense["date"] == entry["date"]:
+      if expense["merchant"] == entry["merchant"] and expense["amount"] == entry["amount"] and expense["for"] == entry["for"]:
+        print "Duplicate expense found"
+        print expense
+        get_input = user_input.user_input(0)
+        ans = get_input.yes_no("Continue?")
+        if ans == "n":
+          return
+      
   expense_list.append(entry)
   print expense_list
   
